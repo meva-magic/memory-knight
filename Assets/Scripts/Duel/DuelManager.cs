@@ -1,142 +1,123 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class DuelManager : MonoBehaviour
 {
-    [Header("Settings")]
-    public List<string> cardTags;          // Card matching pairs
-    public float flipBackDelay = 1.5f;     // Time before unmatched cards flip back
-    
-    [Header("References")]
-    public Transform cardGrid;             // Parent object holding all cards
-    private List<Card> allCards = new List<Card>();
-    
-    // Game state
-    private Card firstCard;
-    private Card secondCard;
-    private bool canSelect = true;
-    private Coroutine flipBackRoutine;
+    [Header("Game Settings")]
+    public float gameDuration = 60f;
+    public List<Card> allCards = new List<Card>();
+
+    [Header("Game State")]
+    public bool canSelect = true;
+    private Card firstSelectedCard;
+    private Card secondSelectedCard;
+
+    private DuelUI duelUI;
+
+    void Awake()
+    {
+        duelUI = GetComponent<DuelUI>();
+        if (duelUI == null)
+        {
+            duelUI = FindObjectOfType<DuelUI>();
+            Debug.LogWarning("DuelUI reference not set, finding in scene");
+        }
+    }
 
     void Start()
     {
         InitializeGame();
     }
 
-    void InitializeGame()
+    void OnValidate()
     {
-        // Get all card components
-        allCards.Clear();
-        foreach (Transform child in cardGrid)
+        if (allCards.Count == 0)
         {
-            var card = child.GetComponent<Card>();
-            if (card != null) allCards.Add(card);
-        }
-
-        AssignCardPairs();
-        ShuffleCards();
-    }
-
-    void AssignCardPairs()
-    {
-        // Create pairs from available tags
-        var availablePairs = new List<string>();
-        foreach (var tag in cardTags)
-        {
-            availablePairs.Add(tag);
-            availablePairs.Add(tag); // Add twice for pairs
-        }
-
-        // Assign randomly to cards
-        for (int i = 0; i < allCards.Count; i++)
-        {
-            if (availablePairs.Count == 0) break;
-            
-            int randomIndex = Random.Range(0, availablePairs.Count);
-            string pairTag = availablePairs[randomIndex];
-            
-            allCards[i].Initialize(
-                pairTag, 
-                Resources.Load<Sprite>("Sprites/" + pairTag)
-            );
-            
-            availablePairs.RemoveAt(randomIndex);
-        }
-    }
-
-    void ShuffleCards()
-    {
-        // Randomize card positions in grid
-        for (int i = 0; i < allCards.Count; i++)
-        {
-            int randomPos = Random.Range(0, allCards.Count);
-            allCards[i].transform.SetSiblingIndex(randomPos);
-        }
-    }
-
-    public void OnCardClicked(Card clickedCard)
-    {
-        if (!canSelect || clickedCard.IsMatched || clickedCard.IsFaceUp)
-            return;
-
-        // If two cards are already selected and unmatched
-        if (firstCard != null && secondCard != null && !firstCard.IsMatched)
-        {
-            // Third card click flips previous pair back
-            StopCoroutine(flipBackRoutine);
-            FlipUnmatchedCards();
-        }
-
-        // Select new card
-        clickedCard.Flip();
-
-        if (firstCard == null)
-        {
-            firstCard = clickedCard;
-        }
-        else
-        {
-            secondCard = clickedCard;
-            canSelect = false;
-            flipBackRoutine = StartCoroutine(CheckMatch());
-        }
-    }
-
-    IEnumerator CheckMatch()
-    {
-        if (firstCard.cardID == secondCard.cardID)
-        {
-            // Match found
-            firstCard.SetMatched();
-            secondCard.SetMatched();
-            
-            // Check win condition
-            if (allCards.TrueForAll(c => c.IsMatched))
+            Card[] foundCards = FindObjectsOfType<Card>();
+            if (foundCards.Length > 0)
             {
-                Debug.Log("You Win!");
+                allCards = new List<Card>(foundCards);
+                Debug.Log($"Auto-assigned {allCards.Count} cards");
             }
         }
-        else
+    }
+
+    public void InitializeGame()
+    {
+        if (allCards.Count == 0)
         {
-            // No match - wait then flip back
-            yield return new WaitForSeconds(flipBackDelay);
-            FlipUnmatchedCards();
+            Debug.LogError("No cards assigned to DuelManager!");
+            return;
         }
 
-        ResetSelection();
-    }
-
-    void FlipUnmatchedCards()
-    {
-        if (firstCard != null && !firstCard.IsMatched) firstCard.Flip();
-        if (secondCard != null && !secondCard.IsMatched) secondCard.Flip();
-        ResetSelection();
-    }
-
-    void ResetSelection()
-    {
-        firstCard = null;
-        secondCard = null;
+        foreach (Card card in allCards)
+        {
+            if (card != null)
+            {
+                card.ResetCard();
+            }
+        }
+        
+        firstSelectedCard = null;
+        secondSelectedCard = null;
         canSelect = true;
+        
+        duelUI?.InitializeGame();
+    }
+
+    public void OnCardSelected(Card card)
+    {
+        if (!canSelect || card == null || card.IsMatched || card.IsFlipped) return;
+
+        if (firstSelectedCard == null)
+        {
+            firstSelectedCard = card;
+            card.Flip();
+        }
+        else if (secondSelectedCard == null)
+        {
+            secondSelectedCard = card;
+            card.Flip();
+            StartCoroutine(CheckForMatch());
+        }
+    }
+
+    private IEnumerator CheckForMatch()
+    {
+        canSelect = false;
+        yield return new WaitForSeconds(0.5f);
+
+        if (firstSelectedCard != null && secondSelectedCard != null)
+        {
+            if (firstSelectedCard.cardID == secondSelectedCard.cardID)
+            {
+                firstSelectedCard.SetMatched();
+                secondSelectedCard.SetMatched();
+                duelUI?.OnMatchFound();
+            }
+            else
+            {
+                firstSelectedCard.Flip();
+                secondSelectedCard.Flip();
+            }
+        }
+
+        firstSelectedCard = null;
+        secondSelectedCard = null;
+        canSelect = true;
+    }
+
+    public int GetTotalPairs()
+    {
+        HashSet<string> uniqueIDs = new HashSet<string>();
+        foreach (Card card in allCards)
+        {
+            if (card != null)
+            {
+                uniqueIDs.Add(card.cardID);
+            }
+        }
+        return uniqueIDs.Count;
     }
 }

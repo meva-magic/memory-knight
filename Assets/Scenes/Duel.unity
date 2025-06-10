@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &300406149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -353,6 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 353703466}
+  - component: {fileID: 353703472}
   - component: {fileID: 353703471}
   - component: {fileID: 353703470}
   - component: {fileID: 353703469}
@@ -463,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 929058810}
+  currentScore: 0
 --- !u!114 &353703471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +538,22 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+--- !u!114 &353703472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353703465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0eb0cff2da2f04ca19b4c363b22d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreKeeper: {fileID: 353703470}
+  timerController: {fileID: 1064837609}
+  winSceneName: Leshy
+  loseSceneName: KnightLose
 --- !u!1 &504910980
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,10 +681,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontImage: {fileID: 1350432062}
+  cardImage: {fileID: 1350432062}
   backImage: {fileID: 504910982}
-  button: {fileID: 652774428}
+  cardButton: {fileID: 652774428}
   cardID: Sword
+  frontSprite: {fileID: -2718695608257623872, guid: dda8c4c70751e844eb04d53b6b610d2a, type: 3}
 --- !u!61 &652774427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -821,10 +840,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontImage: {fileID: 1516379442}
+  cardImage: {fileID: 1516379442}
   backImage: {fileID: 1954386242}
-  button: {fileID: 688469489}
+  cardButton: {fileID: 688469489}
   cardID: Crow
+  frontSprite: {fileID: 4098769710762958682, guid: f8033101d001b554ba71086f2a7a6f44, type: 3}
 --- !u!61 &688469488
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -917,7 +937,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1448120630}
         m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardClicked
+        m_MethodName: OnCardSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 688469487}
@@ -1250,10 +1270,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1064837608}
+  - component: {fileID: 1064837609}
   - component: {fileID: 1064837612}
   - component: {fileID: 1064837611}
   - component: {fileID: 1064837610}
-  - component: {fileID: 1064837609}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -1293,8 +1313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0988b9f213de44c964fd5c8f1f6164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerSlider: {fileID: 1064837610}
-  startTime: 60
+  timerText: {fileID: 929058810}
+  timerFill: {fileID: 1064837611}
 --- !u!114 &1064837610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,10 +1456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontImage: {fileID: 300406150}
+  cardImage: {fileID: 300406150}
   backImage: {fileID: 312723621}
-  button: {fileID: 1221457485}
+  cardButton: {fileID: 1221457485}
   cardID: Rose
+  frontSprite: {fileID: -4888016639519292161, guid: a719075a35787b04eb8ad6cf31260ec4, type: 3}
 --- !u!61 &1221457484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1707,7 +1728,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1448120630}
         m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardClicked
+        m_MethodName: OnCardSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1303645500}
@@ -1775,10 +1796,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontImage: {fileID: 1530837825}
+  cardImage: {fileID: 1530837825}
   backImage: {fileID: 924803086}
-  button: {fileID: 1303645498}
+  cardButton: {fileID: 1303645498}
   cardID: Crow
+  frontSprite: {fileID: 4098769710762958682, guid: f8033101d001b554ba71086f2a7a6f44, type: 3}
 --- !u!1 &1315772082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,7 +1893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1336068644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1946,7 +1968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1350432061
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2056,10 +2078,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontImage: {fileID: 2093083436}
+  cardImage: {fileID: 2093083436}
   backImage: {fileID: 1890308942}
-  button: {fileID: 1403341511}
+  cardButton: {fileID: 1403341511}
   cardID: Rose
+  frontSprite: {fileID: -4888016639519292161, guid: a719075a35787b04eb8ad6cf31260ec4, type: 3}
 --- !u!61 &1403341510
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2193,11 +2216,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 688469486}
-  - {fileID: 1303645497}
   - {fileID: 1403341508}
   - {fileID: 1221457482}
   - {fileID: 1883837183}
   - {fileID: 652774425}
+  - {fileID: 1303645497}
   m_Father: {fileID: 353703466}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2241,15 +2264,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d2fde4417e62742a9b7640125f7fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardTags:
-  - Crow
-  - Crow
-  - Rose
-  - Rose
-  - Sword
-  - Sword
-  flipBackDelay: 1.5
-  cardGrid: {fileID: 1448120628}
+  gameDuration: 60
+  allCards:
+  - {fileID: 688469487}
+  - {fileID: 1403341509}
+  - {fileID: 1221457483}
+  - {fileID: 1883837184}
+  - {fileID: 652774426}
+  - {fileID: 1303645500}
+  canSelect: 1
 --- !u!1 &1516379440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,7 +2290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1516379441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2342,7 +2365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530837824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2452,10 +2475,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontImage: {fileID: 1336068645}
+  cardImage: {fileID: 1336068645}
   backImage: {fileID: 323096765}
-  button: {fileID: 1883837186}
+  cardButton: {fileID: 1883837186}
   cardID: Sword
+  frontSprite: {fileID: -2718695608257623872, guid: dda8c4c70751e844eb04d53b6b610d2a, type: 3}
 --- !u!61 &1883837185
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2725,7 +2749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2093083435
 RectTransform:
   m_ObjectHideFlags: 0

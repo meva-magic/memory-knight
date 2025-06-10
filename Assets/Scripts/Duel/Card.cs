@@ -1,47 +1,97 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image), typeof(Button))]
 public class Card : MonoBehaviour
 {
-    [Header("Components")]
-    public Image frontImage;
+    public Image cardImage;
     public Image backImage;
-    public Button button;
-
-    [Header("State")]
+    public Button cardButton;
+    
     public string cardID;
-    private bool isFaceUp;
-    private bool isMatched;
+    public Sprite frontSprite;
+    
+    private bool isMatched = false;
+    private bool isFlipped = false;
+    private DuelManager duelManager;
 
-    public bool IsFaceUp => isFaceUp;
     public bool IsMatched => isMatched;
+    public bool IsFlipped => isFlipped;
 
-    public void Initialize(string id, Sprite frontSprite)
+    void Awake()
     {
-        cardID = id;
-        frontImage.sprite = frontSprite;
+        if (cardImage == null) cardImage = GetComponent<Image>();
+        if (backImage == null) backImage = transform.Find("Back")?.GetComponent<Image>();
+        if (cardButton == null) cardButton = GetComponent<Button>();
+
+        duelManager = FindObjectOfType<DuelManager>();
+        if (duelManager == null)
+        {
+            Debug.LogError("Card: DuelManager not found!");
+            enabled = false;
+        }
+    }
+
+    void Start()
+    {
+        if (cardButton != null)
+        {
+            cardButton.onClick.AddListener(OnCardClicked);
+        }
+        else
+        {
+            Debug.LogWarning("Card: Button not assigned", gameObject);
+        }
+
         ResetCard();
+    }
+
+    public void OnCardClicked()
+    {
+        if (duelManager != null)
+        {
+            duelManager.OnCardSelected(this);
+        }
     }
 
     public void Flip()
     {
-        isFaceUp = !isFaceUp;
-        frontImage.enabled = isFaceUp;
-        backImage.enabled = !isFaceUp;
+        if (isMatched) return;
+
+        isFlipped = !isFlipped;
+
+        if (backImage != null) backImage.gameObject.SetActive(!isFlipped);
+        if (cardImage != null) cardImage.gameObject.SetActive(isFlipped);
     }
 
     public void SetMatched()
     {
         isMatched = true;
-        button.interactable = false;
+        if (cardButton != null) cardButton.interactable = false;
     }
 
     public void ResetCard()
     {
-        isFaceUp = false;
         isMatched = false;
-        frontImage.enabled = false;
-        backImage.enabled = true;
-        button.interactable = true;
+        isFlipped = false;
+
+        if (cardButton != null) cardButton.interactable = true;
+        if (backImage != null) backImage.gameObject.SetActive(true);
+        if (cardImage != null)
+        {
+            cardImage.gameObject.SetActive(false);
+            if (frontSprite != null) cardImage.sprite = frontSprite;
+        }
     }
+
+    #if UNITY_EDITOR
+    void OnValidate()
+    {
+        if (frontSprite != null && cardImage != null)
+        {
+            cardImage.sprite = frontSprite;
+            cardImage.gameObject.SetActive(false);
+        }
+    }
+    #endif
 }

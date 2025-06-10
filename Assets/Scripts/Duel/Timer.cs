@@ -3,38 +3,62 @@ using UnityEngine.UI;
 
 public class TimerController : MonoBehaviour
 {
-    public Slider timerSlider;    // Ползунок, отображающий остаток времени
-    public float startTime = 60f; // Начальное время таймера (60 секунд)
+    [Header("UI References")]
+    public Text timerText;
+    public Image timerFill;
+    
+    [Header("Timer Settings")]
+    private float currentTime;
+    private float maxTime;
+    private bool isRunning;
 
-    private float remainingTime;  // Остаточное время
-
-    void Start()
+    void Awake()
     {
-        // Устанавливаем начальное время
-        remainingTime = startTime;
-        timerSlider.maxValue = startTime;
-        timerSlider.value = startTime;
+        if (timerText == null)
+        {
+            timerText = GetComponent<Text>();
+            Debug.LogWarning("TimerText reference not set, getting from component");
+        }
     }
 
     void Update()
     {
-        // Уменьшаем время каждую секунду
-        remainingTime -= Time.deltaTime;
-
-        // Обновляем слайдер
-        timerSlider.value = remainingTime;
-
-        // Завершаем обратный отсчёт, если время вышло
-        if (remainingTime <= 0f)
+        if (!isRunning) return;
+        
+        currentTime -= Time.deltaTime;
+        UpdateDisplay();
+        
+        if (currentTime <= 0f)
         {
+            currentTime = 0f;
             StopTimer();
+            FindObjectOfType<DuelUI>()?.OnTimeExpired();
         }
     }
 
-    void StopTimer()
+    public void ResetTimer(float duration)
     {
-        // Останавливаем таймер
-        enabled = false;
-        Debug.Log("Время истекло!");
+        maxTime = duration;
+        currentTime = maxTime;
+        isRunning = true;
+        UpdateDisplay();
+    }
+
+    public void StopTimer()
+    {
+        isRunning = false;
+    }
+
+    private void UpdateDisplay()
+    {
+        if (timerText != null)
+        {
+            timerText.text = Mathf.CeilToInt(currentTime).ToString();
+        }
+        
+        if (timerFill != null)
+        {
+            timerFill.fillAmount = currentTime / maxTime;
+        }
     }
 }
