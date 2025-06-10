@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -8,9 +7,8 @@ public class GameSceneManager : MonoBehaviour
     [Header("Scene Names")]
     public string winScene = "WinScene";
     public string loseScene = "LoseScene";
-    public string mainMenu = "MainMenu";
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -23,19 +21,8 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
-    public void EndDuel(bool isWin)
+    public void LoadEndScene(bool isWin)
     {
-        DuelManager.Instance.ForceEndDuel();
-        SceneManager.LoadScene(isWin ? winScene : loseScene);
-    }
-
-    public void ReturnToMenu()
-    {
-        SceneManager.LoadScene(mainMenu);
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(isWin ? winScene : loseScene);
     }
 }

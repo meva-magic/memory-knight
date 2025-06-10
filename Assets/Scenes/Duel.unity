@@ -536,7 +536,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winScene: Leshy
   loseScene: KnightLose
-  mainMenu: MainMenu
 --- !u!1 &504910980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1254,7 @@ GameObject:
   - component: {fileID: 1064837610}
   m_Layer: 5
   m_Name: Timer
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2277,7 +2276,7 @@ GameObject:
   - component: {fileID: 1448120630}
   m_Layer: 5
   m_Name: Grid
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2343,17 +2342,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d2fde4417e62742a9b7640125f7fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pairsToMatch: 3
+  pairsToWin: 3
   totalTime: 30
   flipDelay: 1
-  timerSlider: {fileID: 1064837610}
-  cards:
+  flipBackDelay: 1
+  allCards:
   - {fileID: 688469487}
   - {fileID: 1403341509}
   - {fileID: 1221457483}
   - {fileID: 1883837184}
   - {fileID: 652774426}
   - {fileID: 1303645500}
+  timerSlider: {fileID: 1064837610}
 --- !u!1 &1516379440
 GameObject:
   m_ObjectHideFlags: 0

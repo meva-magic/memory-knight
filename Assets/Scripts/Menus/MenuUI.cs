@@ -31,7 +31,7 @@ public class MenuUI : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Woods");
+        SceneManager.LoadScene("Leshy");
     }
 
     public void Menu()

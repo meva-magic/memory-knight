@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4c6c23f87a8fc4db12a72d92dc9c68, type: 3}
   m_Name: Fairy 2
   m_EditorClassIdentifier: 
-  Name: 
+  Name: "\u0444\u0435\u0439\u0440\u0438"
   dialogueLines: []
   autoProgressLines: 
   typingSpeed: 0.05
   autoProgressDelay: 1.5
-  voice: {fileID: 0}
+  voice: {fileID: 8300000, guid: cabee63653369ef4bbc10c1e7031c4c5, type: 3}
   voiceVolume: 1
   voicePitch: 1

@@ -1,116 +1,131 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI; // Add this for Slider component
 
 public class DuelManager : MonoBehaviour
 {
     public static DuelManager Instance;
 
-    [Header("Settings")]
-    public int pairsToMatch = 5;
+    [Header("Game Settings")]
+    public int pairsToWin = 5;
     public float totalTime = 60f;
     public float flipDelay = 0.5f;
+    public float flipBackDelay = 1f;
 
-    [Header("References")]
-    public Slider timerSlider;
-    public List<Card> cards = new List<Card>();
+    [Header("Card References")]
+    public List<Card> allCards = new List<Card>();
 
-    // Game state
-    private int matchedPairs = 0;
-    private Card firstSelectedCard;
+    [Header("UI References")]
+    public Slider timerSlider; // Reference to the UI Slider
+
+    private readonly List<Card> flippedCards = new List<Card>();
+    private int matchedPairs;
     private bool isProcessing;
-    public bool IsDuelActive { get; private set; }
+    private Coroutine timerRoutine;
+    public bool IsGameActive { get; private set; }
+    public bool CanAcceptInput => flippedCards.Count < 2 && !isProcessing && IsGameActive;
 
-    void Awake() => Instance = this;
-
-    void Start()
+    private void Awake()
     {
-        InitializeGame();
-        StartCoroutine(TimerCountdown());
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
-    void InitializeGame()
+    private void Start() => InitializeGame();
+
+    public void InitializeGame()
     {
-        IsDuelActive = true;
+        IsGameActive = true;
         matchedPairs = 0;
-        firstSelectedCard = null;
-        isProcessing = false;
+        flippedCards.Clear();
+
+        // Initialize the slider
         timerSlider.maxValue = totalTime;
         timerSlider.value = totalTime;
 
-        foreach (Card card in cards)
+        foreach (var card in allCards)
         {
             card.InitializeCard();
         }
 
         ShuffleCards();
+        timerRoutine = StartCoroutine(TimerCountdown());
     }
 
-    void ShuffleCards()
+    private void ShuffleCards()
     {
-        for (int i = 0; i < cards.Count; i++)
+        for (int i = 0; i < allCards.Count; i++)
         {
-            int randomIndex = Random.Range(i, cards.Count);
-            (cards[randomIndex], cards[i]) = (cards[i], cards[randomIndex]);
+            int randomIndex = Random.Range(i, allCards.Count);
+            (allCards[i], allCards[randomIndex]) = (allCards[randomIndex], allCards[i]);
         }
     }
 
-    public void OnCardFlipped(Card card)
+    public void ProcessCardFlip(Card card)
     {
-        if (isProcessing || card.IsMatched) return;
+        if (!CanAcceptInput || card.IsFlipped || card.IsMatched) return;
 
-        if (firstSelectedCard == null)
+        card.IsFlipped = true;
+        card.UpdateVisuals();
+        flippedCards.Add(card);
+
+        if (flippedCards.Count == 2)
         {
-            firstSelectedCard = card;
-        }
-        else
-        {
-            StartCoroutine(ProcessCardMatch(card));
+            StartCoroutine(CheckMatch());
         }
     }
 
-    IEnumerator ProcessCardMatch(Card secondCard)
+    private IEnumerator CheckMatch()
     {
         isProcessing = true;
-
         yield return new WaitForSeconds(flipDelay);
 
-        bool isMatch = firstSelectedCard.cardID == secondCard.cardID;
+        bool isMatch = flippedCards[0].cardID == flippedCards[1].cardID;
 
         if (isMatch)
         {
-            firstSelectedCard.IsMatched = true;
-            secondCard.IsMatched = true;
+            flippedCards.ForEach(c => c.IsMatched = true);
             matchedPairs++;
 
-            if (matchedPairs >= pairsToMatch)
+            if (matchedPairs >= pairsToWin)
             {
-                GameSceneManager.Instance.EndDuel(true);
+                EndGame(true);
                 yield break;
             }
         }
         else
         {
-            yield return new WaitForSeconds(0.5f);
-            firstSelectedCard.Flip();
-            secondCard.Flip();
+            yield return new WaitForSeconds(flipBackDelay);
+            flippedCards.ForEach(c =>
+            {
+                c.IsFlipped = false;
+                c.UpdateVisuals();
+            });
         }
 
-        firstSelectedCard = null;
+        flippedCards.Clear();
         isProcessing = false;
     }
 
-    IEnumerator TimerCountdown()
+    private IEnumerator TimerCountdown()
     {
-        while (timerSlider.value > 0 && IsDuelActive)
+        float timeRemaining = totalTime;
+        
+        while (timeRemaining > 0 && IsGameActive)
         {
-            timerSlider.value -= 1;
-            yield return new WaitForSeconds(1f);
+            timeRemaining -= Time.deltaTime;
+            timerSlider.value = timeRemaining; // Update the slider value
+            yield return null;
         }
 
-        if (IsDuelActive) GameSceneManager.Instance.EndDuel(false);
+        if (IsGameActive) EndGame(false);
     }
 
-    public void ForceEndDuel() => IsDuelActive = false;
+    public void EndGame(bool isWin)
+    {
+        IsGameActive = false;
+        if (timerRoutine != null) StopCoroutine(timerRoutine);
+        GameSceneManager.Instance.LoadEndScene(isWin);
+    }
 }
