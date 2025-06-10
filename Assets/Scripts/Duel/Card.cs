@@ -3,54 +3,45 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    public Image frontFace;           // Лицевая сторона карты
-    public Image backFace;            // Обратная сторона карты
-    public string tagName;            // Уникальный тег карты
-    private bool isRevealed = false;
+    [Header("Components")]
+    public Image frontImage;
+    public Image backImage;
+    public Button button;
 
-    void Start()
+    [Header("State")]
+    public string cardID;
+    private bool isFaceUp;
+    private bool isMatched;
+
+    public bool IsFaceUp => isFaceUp;
+    public bool IsMatched => isMatched;
+
+    public void Initialize(string id, Sprite frontSprite)
     {
-        GetComponent<Button>().onClick.AddListener(() =>
-        {
-            DuelManager manager = FindObjectOfType<DuelManager>(); // находим менеджер
-            manager.HandleCardSelection(this); // отправляем карту на обработку
-        });
+        cardID = id;
+        frontImage.sprite = frontSprite;
+        ResetCard();
     }
 
-    public void Reveal()
+    public void Flip()
     {
-        if (!isRevealed)
-        {
-            frontFace.gameObject.SetActive(true);
-            backFace.gameObject.SetActive(false);
-            isRevealed = true;
-        }
+        isFaceUp = !isFaceUp;
+        frontImage.enabled = isFaceUp;
+        backImage.enabled = !isFaceUp;
     }
 
-    public void Hide()
+    public void SetMatched()
     {
-        if (isRevealed)
-        {
-            frontFace.gameObject.SetActive(false);
-            backFace.gameObject.SetActive(true);
-            isRevealed = false;
-        }
+        isMatched = true;
+        button.interactable = false;
     }
 
-    public bool Matches(string otherTag)
+    public void ResetCard()
     {
-        return tagName.Equals(otherTag);
-    }
-
-    public void SetCardData(Image front, Image back, string tag)
-    {
-        frontFace = front;
-        backFace = back;
-        tagName = tag;
-    }
-
-    public void ResetState()
-    {
-        Hide();
+        isFaceUp = false;
+        isMatched = false;
+        frontImage.enabled = false;
+        backImage.enabled = true;
+        button.interactable = true;
     }
 }

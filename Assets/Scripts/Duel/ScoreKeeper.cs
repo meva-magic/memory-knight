@@ -4,25 +4,26 @@ using UnityEngine.UI;
 public class ScoreKeeper : MonoBehaviour
 {
     public Text scoreText;
-    private int _currentScore;
+    private int currentScore;
     private int maxScore;
 
-    public int Score => _currentScore; // Публичное свойство Score
+    // Публичное свойство для получения текущего балла
+    public int Score => currentScore;
 
     public void IncrementScore()
     {
-        _currentScore++; // инкрементируем внутренний счётчик
-        scoreText.text = $"Score: {_currentScore}/{maxScore}";
-        if (_currentScore == maxScore)
+        currentScore++;
+        scoreText.text = $"Score: {currentScore}/{maxScore}";
+        if (currentScore == maxScore)
         {
-            FindFirstObjectByType<DuelManager>().EndGame();
+            //FindObjectOfType<DuelManager>().EndGame();
         }
     }
 
     public void ResetScore(int maxPossibleScore)
     {
-        _currentScore = 0;
+        currentScore = 0;
         maxScore = maxPossibleScore;
-        scoreText.text = $"Score: {_currentScore}/{maxScore}";
+        scoreText.text = $"Score: {currentScore}/{maxScore}";
     }
 }

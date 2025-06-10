@@ -27,14 +27,20 @@ public class WoodsUI : MonoBehaviour
         joystick.SetActive(false);
     }
 
+    /// <summary>
+    /// Поиск элементов UI по тегу "UI" и скрытие их
+    /// </summary>
     public void DisableAllUI()
     {
-        if (canvasParent != null)
+        // Получаем список всех объектов с тегом "UI"
+        GameObject[] uiElements = GameObject.FindGameObjectsWithTag("UI");
+
+        foreach(GameObject element in uiElements)
         {
-            for(int i = 0; i < canvasParent.transform.childCount; i++)
+            // Деактивируем только элементы UI, принадлежащие родительскому канвасу
+            if(element.transform.IsChildOf(canvasParent.transform))
             {
-                Transform childTransform = canvasParent.transform.GetChild(i);
-                childTransform.gameObject.SetActive(false); // Деактивируем каждый дочерний объект отдельно
+                element.SetActive(false);
             }
         }
     }

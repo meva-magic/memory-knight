@@ -1,8 +1,9 @@
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
-{    
-    public VariableJoystick joystick;    public float moveSpeed;
+{
+    public VariableJoystick joystick;
+    public float moveSpeed;
     private Vector2 _joystickInputs;
 
     private void Update()
@@ -14,10 +15,15 @@ public class PlayerMove : MonoBehaviour
         transform.eulerAngles = targetRotation;
     }
 
-    private void FixedUpdate() 
+    private void FixedUpdate()
     {
         var targetPosition = ((Vector2)transform.position + _joystickInputs * Time.fixedDeltaTime * moveSpeed);
+        transform.position = targetPosition;
+    }
 
-        transform.position = targetPosition;    
+    // Новый метод для сброса значений джойстика
+    public void ResetJoystickInput()
+    {
+        _joystickInputs = Vector2.zero;
     }
 }

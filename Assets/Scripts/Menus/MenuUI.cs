@@ -7,7 +7,8 @@ public class MenuUI : MonoBehaviour
     public static MenuUI instance;
 
     [SerializeField] private Button startButton;
-    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button menuButton;
     [SerializeField] private Button quitButton;
 
     private void Awake()
@@ -18,18 +19,24 @@ public class MenuUI : MonoBehaviour
     private void Start()
     {
         startButton.onClick.AddListener(LoadGame);
-        creditsButton.onClick.AddListener(Credits);
+        restartButton.onClick.AddListener(Restart);
+        menuButton.onClick.AddListener(Menu);
         quitButton.onClick.AddListener(QuitGame);
     }
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Start");
     }
 
-    public void Credits()
+    public void Restart()
     {
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene("Woods");
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()
