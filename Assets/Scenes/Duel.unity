@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &300406149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -353,12 +353,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 353703466}
-  - component: {fileID: 353703472}
   - component: {fileID: 353703471}
-  - component: {fileID: 353703470}
   - component: {fileID: 353703469}
   - component: {fileID: 353703468}
   - component: {fileID: 353703467}
+  - component: {fileID: 353703472}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -380,7 +379,6 @@ RectTransform:
   m_Children:
   - {fileID: 1448120628}
   - {fileID: 1064837608}
-  - {fileID: 929058812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -451,20 +449,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &353703470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353703465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb8497cd5b50f7f459822a53a49afa2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 929058810}
-  currentScore: 0
 --- !u!114 &353703471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,13 +531,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 353703465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a0eb0cff2da2f04ca19b4c363b22d43, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e02be1db4148ad4081a8325b5c54a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreKeeper: {fileID: 353703470}
-  timerController: {fileID: 1064837609}
-  winSceneName: Leshy
-  loseSceneName: KnightLose
+  winScene: Leshy
+  loseScene: KnightLose
+  mainMenu: MainMenu
 --- !u!1 &504910980
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +624,8 @@ GameObject:
   - component: {fileID: 652774426}
   - component: {fileID: 652774427}
   - component: {fileID: 652774428}
+  - component: {fileID: 652774430}
+  - component: {fileID: 652774429}
   m_Layer: 3
   m_Name: Card (5)
   m_TagString: Untagged
@@ -681,11 +666,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 1350432062}
-  backImage: {fileID: 504910982}
-  cardButton: {fileID: 652774428}
   cardID: Sword
-  frontSprite: {fileID: -2718695608257623872, guid: dda8c4c70751e844eb04d53b6b610d2a, type: 3}
+  frontFace: {fileID: 1350432060}
+  backFace: {fileID: 504910980}
 --- !u!61 &652774427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -772,22 +755,60 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 652774429}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448120630}
-        m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardClicked
-        m_Mode: 2
+      - m_Target: {fileID: 652774426}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 652774426}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &652774429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652774424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &652774430
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652774424}
+  m_CullTransparentMesh: 1
 --- !u!1 &688469485
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +821,8 @@ GameObject:
   - component: {fileID: 688469487}
   - component: {fileID: 688469488}
   - component: {fileID: 688469489}
+  - component: {fileID: 688469491}
+  - component: {fileID: 688469490}
   m_Layer: 3
   m_Name: Card (1)
   m_TagString: Untagged
@@ -840,11 +863,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 1516379442}
-  backImage: {fileID: 1954386242}
-  cardButton: {fileID: 688469489}
   cardID: Crow
-  frontSprite: {fileID: 4098769710762958682, guid: f8033101d001b554ba71086f2a7a6f44, type: 3}
+  frontFace: {fileID: 1516379440}
+  backFace: {fileID: 1954386240}
 --- !u!61 &688469488
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -931,22 +952,60 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 688469490}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448120630}
-        m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardSelected
-        m_Mode: 2
+      - m_Target: {fileID: 688469487}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 688469487}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &688469490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688469485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &688469491
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688469485}
+  m_CullTransparentMesh: 1
 --- !u!1 &862228965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,85 +1241,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924803084}
   m_CullTransparentMesh: 1
---- !u!1 &929058809
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 929058812}
-  - component: {fileID: 929058811}
-  - component: {fileID: 929058810}
-  m_Layer: 5
-  m_Name: Text (Legacy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &929058810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929058809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: New Text
---- !u!222 &929058811
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929058809}
-  m_CullTransparentMesh: 1
---- !u!224 &929058812
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929058809}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 353703466}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 769, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1064837607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1250,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1064837608}
-  - component: {fileID: 1064837609}
   - component: {fileID: 1064837612}
   - component: {fileID: 1064837611}
   - component: {fileID: 1064837610}
@@ -1301,20 +1280,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 938}
   m_SizeDelta: {x: 750, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1064837609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064837607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e0988b9f213de44c964fd5c8f1f6164, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerText: {fileID: 929058810}
-  timerFill: {fileID: 1064837611}
 --- !u!114 &1064837610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,6 +1381,8 @@ GameObject:
   - component: {fileID: 1221457483}
   - component: {fileID: 1221457484}
   - component: {fileID: 1221457485}
+  - component: {fileID: 1221457487}
+  - component: {fileID: 1221457486}
   m_Layer: 3
   m_Name: Card (3)
   m_TagString: Untagged
@@ -1456,11 +1423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 300406150}
-  backImage: {fileID: 312723621}
-  cardButton: {fileID: 1221457485}
   cardID: Rose
-  frontSprite: {fileID: -4888016639519292161, guid: a719075a35787b04eb8ad6cf31260ec4, type: 3}
+  frontFace: {fileID: 300406148}
+  backFace: {fileID: 312723619}
 --- !u!61 &1221457484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1547,22 +1512,60 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1221457486}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448120630}
-        m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardClicked
-        m_Mode: 2
+      - m_Target: {fileID: 1221457483}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1221457483}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1221457486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221457481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1221457487
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221457481}
+  m_CullTransparentMesh: 1
 --- !u!1 &1301838997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,6 +1657,8 @@ GameObject:
   - component: {fileID: 1303645500}
   - component: {fileID: 1303645499}
   - component: {fileID: 1303645498}
+  - component: {fileID: 1303645502}
+  - component: {fileID: 1303645501}
   m_Layer: 3
   m_Name: Card (6)
   m_TagString: Untagged
@@ -1722,17 +1727,17 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1303645501}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448120630}
-        m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardSelected
-        m_Mode: 2
+      - m_Target: {fileID: 1303645500}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1303645500}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1796,11 +1801,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 1530837825}
-  backImage: {fileID: 924803086}
-  cardButton: {fileID: 1303645498}
   cardID: Crow
-  frontSprite: {fileID: 4098769710762958682, guid: f8033101d001b554ba71086f2a7a6f44, type: 3}
+  frontFace: {fileID: 1530837823}
+  backFace: {fileID: 924803084}
+--- !u!114 &1303645501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303645496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1303645502
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303645496}
+  m_CullTransparentMesh: 1
 --- !u!1 &1315772082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,7 +1934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1336068644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1968,7 +2009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1350432061
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2038,6 +2079,8 @@ GameObject:
   - component: {fileID: 1403341509}
   - component: {fileID: 1403341510}
   - component: {fileID: 1403341511}
+  - component: {fileID: 1403341513}
+  - component: {fileID: 1403341512}
   m_Layer: 3
   m_Name: Card (2)
   m_TagString: Untagged
@@ -2078,11 +2121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 2093083436}
-  backImage: {fileID: 1890308942}
-  cardButton: {fileID: 1403341511}
   cardID: Rose
-  frontSprite: {fileID: -4888016639519292161, guid: a719075a35787b04eb8ad6cf31260ec4, type: 3}
+  frontFace: {fileID: 2093083434}
+  backFace: {fileID: 1890308940}
 --- !u!61 &1403341510
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2169,22 +2210,60 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1403341512}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448120630}
-        m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardClicked
-        m_Mode: 2
+      - m_Target: {fileID: 1403341509}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1403341509}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1403341512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403341507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1403341513
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403341507}
+  m_CullTransparentMesh: 1
 --- !u!1 &1448120627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,15 +2343,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d2fde4417e62742a9b7640125f7fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDuration: 60
-  allCards:
+  pairsToMatch: 3
+  totalTime: 30
+  flipDelay: 1
+  timerSlider: {fileID: 1064837610}
+  cards:
   - {fileID: 688469487}
   - {fileID: 1403341509}
   - {fileID: 1221457483}
   - {fileID: 1883837184}
   - {fileID: 652774426}
   - {fileID: 1303645500}
-  canSelect: 1
 --- !u!1 &1516379440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1516379441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2365,7 +2446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1530837824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2435,6 +2516,8 @@ GameObject:
   - component: {fileID: 1883837184}
   - component: {fileID: 1883837185}
   - component: {fileID: 1883837186}
+  - component: {fileID: 1883837188}
+  - component: {fileID: 1883837187}
   m_Layer: 3
   m_Name: Card (4)
   m_TagString: Untagged
@@ -2475,11 +2558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 1336068645}
-  backImage: {fileID: 323096765}
-  cardButton: {fileID: 1883837186}
   cardID: Sword
-  frontSprite: {fileID: -2718695608257623872, guid: dda8c4c70751e844eb04d53b6b610d2a, type: 3}
+  frontFace: {fileID: 1336068643}
+  backFace: {fileID: 323096763}
 --- !u!61 &1883837185
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2566,22 +2647,60 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1883837187}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448120630}
-        m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: OnCardClicked
-        m_Mode: 2
+      - m_Target: {fileID: 1883837184}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1883837184}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1883837187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883837182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1883837188
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883837182}
+  m_CullTransparentMesh: 1
 --- !u!1 &1890308940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,7 +2868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2093083435
 RectTransform:
   m_ObjectHideFlags: 0

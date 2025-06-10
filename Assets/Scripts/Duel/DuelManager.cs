@@ -1,123 +1,116 @@
+using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class DuelManager : MonoBehaviour
 {
-    [Header("Game Settings")]
-    public float gameDuration = 60f;
-    public List<Card> allCards = new List<Card>();
+    public static DuelManager Instance;
 
-    [Header("Game State")]
-    public bool canSelect = true;
+    [Header("Settings")]
+    public int pairsToMatch = 5;
+    public float totalTime = 60f;
+    public float flipDelay = 0.5f;
+
+    [Header("References")]
+    public Slider timerSlider;
+    public List<Card> cards = new List<Card>();
+
+    // Game state
+    private int matchedPairs = 0;
     private Card firstSelectedCard;
-    private Card secondSelectedCard;
+    private bool isProcessing;
+    public bool IsDuelActive { get; private set; }
 
-    private DuelUI duelUI;
-
-    void Awake()
-    {
-        duelUI = GetComponent<DuelUI>();
-        if (duelUI == null)
-        {
-            duelUI = FindObjectOfType<DuelUI>();
-            Debug.LogWarning("DuelUI reference not set, finding in scene");
-        }
-    }
+    void Awake() => Instance = this;
 
     void Start()
     {
         InitializeGame();
+        StartCoroutine(TimerCountdown());
     }
 
-    void OnValidate()
+    void InitializeGame()
     {
-        if (allCards.Count == 0)
-        {
-            Card[] foundCards = FindObjectsOfType<Card>();
-            if (foundCards.Length > 0)
-            {
-                allCards = new List<Card>(foundCards);
-                Debug.Log($"Auto-assigned {allCards.Count} cards");
-            }
-        }
-    }
-
-    public void InitializeGame()
-    {
-        if (allCards.Count == 0)
-        {
-            Debug.LogError("No cards assigned to DuelManager!");
-            return;
-        }
-
-        foreach (Card card in allCards)
-        {
-            if (card != null)
-            {
-                card.ResetCard();
-            }
-        }
-        
+        IsDuelActive = true;
+        matchedPairs = 0;
         firstSelectedCard = null;
-        secondSelectedCard = null;
-        canSelect = true;
-        
-        duelUI?.InitializeGame();
+        isProcessing = false;
+        timerSlider.maxValue = totalTime;
+        timerSlider.value = totalTime;
+
+        foreach (Card card in cards)
+        {
+            card.InitializeCard();
+        }
+
+        ShuffleCards();
     }
 
-    public void OnCardSelected(Card card)
+    void ShuffleCards()
     {
-        if (!canSelect || card == null || card.IsMatched || card.IsFlipped) return;
+        for (int i = 0; i < cards.Count; i++)
+        {
+            int randomIndex = Random.Range(i, cards.Count);
+            (cards[randomIndex], cards[i]) = (cards[i], cards[randomIndex]);
+        }
+    }
+
+    public void OnCardFlipped(Card card)
+    {
+        if (isProcessing || card.IsMatched) return;
 
         if (firstSelectedCard == null)
         {
             firstSelectedCard = card;
-            card.Flip();
         }
-        else if (secondSelectedCard == null)
+        else
         {
-            secondSelectedCard = card;
-            card.Flip();
-            StartCoroutine(CheckForMatch());
+            StartCoroutine(ProcessCardMatch(card));
         }
     }
 
-    private IEnumerator CheckForMatch()
+    IEnumerator ProcessCardMatch(Card secondCard)
     {
-        canSelect = false;
-        yield return new WaitForSeconds(0.5f);
+        isProcessing = true;
 
-        if (firstSelectedCard != null && secondSelectedCard != null)
+        yield return new WaitForSeconds(flipDelay);
+
+        bool isMatch = firstSelectedCard.cardID == secondCard.cardID;
+
+        if (isMatch)
         {
-            if (firstSelectedCard.cardID == secondSelectedCard.cardID)
+            firstSelectedCard.IsMatched = true;
+            secondCard.IsMatched = true;
+            matchedPairs++;
+
+            if (matchedPairs >= pairsToMatch)
             {
-                firstSelectedCard.SetMatched();
-                secondSelectedCard.SetMatched();
-                duelUI?.OnMatchFound();
+                GameSceneManager.Instance.EndDuel(true);
+                yield break;
             }
-            else
-            {
-                firstSelectedCard.Flip();
-                secondSelectedCard.Flip();
-            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+            firstSelectedCard.Flip();
+            secondCard.Flip();
         }
 
         firstSelectedCard = null;
-        secondSelectedCard = null;
-        canSelect = true;
+        isProcessing = false;
     }
 
-    public int GetTotalPairs()
+    IEnumerator TimerCountdown()
     {
-        HashSet<string> uniqueIDs = new HashSet<string>();
-        foreach (Card card in allCards)
+        while (timerSlider.value > 0 && IsDuelActive)
         {
-            if (card != null)
-            {
-                uniqueIDs.Add(card.cardID);
-            }
+            timerSlider.value -= 1;
+            yield return new WaitForSeconds(1f);
         }
-        return uniqueIDs.Count;
+
+        if (IsDuelActive) GameSceneManager.Instance.EndDuel(false);
     }
+
+    public void ForceEndDuel() => IsDuelActive = false;
 }

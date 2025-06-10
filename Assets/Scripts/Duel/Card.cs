@@ -1,97 +1,38 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Image), typeof(Button))]
 public class Card : MonoBehaviour
 {
-    public Image cardImage;
-    public Image backImage;
-    public Button cardButton;
-    
     public string cardID;
-    public Sprite frontSprite;
-    
-    private bool isMatched = false;
-    private bool isFlipped = false;
-    private DuelManager duelManager;
+    public GameObject frontFace;
+    public GameObject backFace;
 
-    public bool IsMatched => isMatched;
-    public bool IsFlipped => isFlipped;
+    [System.NonSerialized] public bool IsMatched;
+    [System.NonSerialized] public bool IsFlipped;
 
-    void Awake()
+    void Start() => InitializeCard();
+
+    public void InitializeCard()
     {
-        if (cardImage == null) cardImage = GetComponent<Image>();
-        if (backImage == null) backImage = transform.Find("Back")?.GetComponent<Image>();
-        if (cardButton == null) cardButton = GetComponent<Button>();
-
-        duelManager = FindObjectOfType<DuelManager>();
-        if (duelManager == null)
-        {
-            Debug.LogError("Card: DuelManager not found!");
-            enabled = false;
-        }
-    }
-
-    void Start()
-    {
-        if (cardButton != null)
-        {
-            cardButton.onClick.AddListener(OnCardClicked);
-        }
-        else
-        {
-            Debug.LogWarning("Card: Button not assigned", gameObject);
-        }
-
-        ResetCard();
-    }
-
-    public void OnCardClicked()
-    {
-        if (duelManager != null)
-        {
-            duelManager.OnCardSelected(this);
-        }
+        IsMatched = false;
+        IsFlipped = false;
+        UpdateVisuals();
     }
 
     public void Flip()
     {
-        if (isMatched) return;
-
-        isFlipped = !isFlipped;
-
-        if (backImage != null) backImage.gameObject.SetActive(!isFlipped);
-        if (cardImage != null) cardImage.gameObject.SetActive(isFlipped);
-    }
-
-    public void SetMatched()
-    {
-        isMatched = true;
-        if (cardButton != null) cardButton.interactable = false;
-    }
-
-    public void ResetCard()
-    {
-        isMatched = false;
-        isFlipped = false;
-
-        if (cardButton != null) cardButton.interactable = true;
-        if (backImage != null) backImage.gameObject.SetActive(true);
-        if (cardImage != null)
+        if (CanFlip())
         {
-            cardImage.gameObject.SetActive(false);
-            if (frontSprite != null) cardImage.sprite = frontSprite;
+            IsFlipped = !IsFlipped;
+            UpdateVisuals();
+            DuelManager.Instance.OnCardFlipped(this);
         }
     }
 
-    #if UNITY_EDITOR
-    void OnValidate()
+    void UpdateVisuals()
     {
-        if (frontSprite != null && cardImage != null)
-        {
-            cardImage.sprite = frontSprite;
-            cardImage.gameObject.SetActive(false);
-        }
+        frontFace.SetActive(IsFlipped);
+        backFace.SetActive(!IsFlipped);
     }
-    #endif
+
+    bool CanFlip() => !IsMatched && DuelManager.Instance.IsDuelActive;
 }
