@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd4c6c23f87a8fc4db12a72d92dc9c68, type: 3}
-  m_Name: Knight Win
+  m_Name: Knight Start
   m_EditorClassIdentifier: 
   Name: "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
   dialogueLines:
   - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
   - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
   - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
-  - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
-  - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
-  - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
   autoProgressLines: 
-  typingSpeed: 0.05
+  typingSpeed: 0.065
   autoProgressDelay: 1.5
-  voice: {fileID: 8300000, guid: e06d04ae96245154095bc9a0ec2ed30f, type: 3}
+  voice: {fileID: 8300000, guid: 7f0b7fe9edea06944a70f3b31d0db52e, type: 3}
   voiceVolume: 0.45
   voicePitch: 1

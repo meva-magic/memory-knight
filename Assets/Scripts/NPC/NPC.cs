@@ -7,7 +7,7 @@ public class NPC : MonoBehaviour
 {
     public NPCDialogue dialogueData;
     public GameObject dialoguePanel;
-    public Button continueButton; // ссылка на кнопку для продолжения диалога
+    public Button continueButton;
     public TMP_Text dialogueText, nameText;
 
     private int dialogueIndex;
@@ -55,6 +55,8 @@ public class NPC : MonoBehaviour
 
     public void NextLine()
     {
+        AudioManager.instance.Play("ButtonPress");
+        
         if (isTyping)
         {
             StopAllCoroutines();
@@ -63,19 +65,19 @@ public class NPC : MonoBehaviour
         }
         else if (++dialogueIndex < dialogueData.dialogueLines.Length)
         {
-            StartCoroutine(TypeLine()); // Начинаем показывать следующую строку
+            StartCoroutine(TypeLine());
         }
         else
         {
-            EndDialogue(); // Закрываем диалог, если больше строк нет
+            EndDialogue();
         }
     }
 
     IEnumerator TypeLine()
     {
         isTyping = true;
-        dialogueText.SetText(""); // Обнуляем текст
-        continueButton.gameObject.SetActive(false); // Прячем кнопку во время анимации ввода
+        dialogueText.SetText(""); 
+        continueButton.gameObject.SetActive(false); 
 
         foreach (char letter in dialogueData.dialogueLines[dialogueIndex])
         {
@@ -83,14 +85,14 @@ public class NPC : MonoBehaviour
             
             if (dialogueData.voice != null)
             {
-                audioSource.PlayOneShot(dialogueData.voice, dialogueData.voiceVolume); // Звук озвучивания
+                audioSource.PlayOneShot(dialogueData.voice, dialogueData.voiceVolume); 
             }
 
-            yield return new WaitForSeconds(dialogueData.typingSpeed); // Печатаем буквы одну за другой
+            yield return new WaitForSeconds(dialogueData.typingSpeed);
         }
 
         isTyping = false;
-        continueButton.gameObject.SetActive(true); // Показываем кнопку после окончания печати строки
+        continueButton.gameObject.SetActive(true);
     }
 
     public void EndDialogue()

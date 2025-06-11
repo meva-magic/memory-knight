@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI; // Add this for Slider component
+using UnityEngine.UI;
 
 public class DuelManager : MonoBehaviour
 {
@@ -12,13 +12,14 @@ public class DuelManager : MonoBehaviour
     public int pairsToWin = 5;
     public float totalTime = 60f;
     public float flipDelay = 0.5f;
-    public float flipBackDelay = 1f;
+    public float flipBackDelay = 0.5f;
 
     [Header("Card References")]
     public List<Card> allCards = new List<Card>();
 
     [Header("UI References")]
-    public Slider timerSlider; // Reference to the UI Slider
+    public Slider timerSlider;
+    public GameObject restartPanel; // Reference to your restart panel
 
     private readonly List<Card> flippedCards = new List<Card>();
     private int matchedPairs;
@@ -47,6 +48,12 @@ public class DuelManager : MonoBehaviour
         matchedPairs = 0;
         flippedCards.Clear();
 
+        // Hide restart panel at game start
+        if (restartPanel != null)
+        {
+            restartPanel.SetActive(false);
+        }
+
         // Initialize the slider
         timerSlider.maxValue = totalTime;
         timerSlider.value = totalTime;
@@ -71,6 +78,8 @@ public class DuelManager : MonoBehaviour
 
     public void ProcessCardFlip(Card card)
     {
+        AudioManager.instance.Play("CardPress");
+
         if (!CanAcceptInput || card.IsFlipped || card.IsMatched) return;
 
         card.IsFlipped = true;
@@ -92,6 +101,8 @@ public class DuelManager : MonoBehaviour
 
         if (isMatch)
         {
+            //AudioManager.instance.Play("RightPair");
+
             flippedCards.ForEach(c => c.IsMatched = true);
             matchedPairs++;
 
@@ -104,6 +115,9 @@ public class DuelManager : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(flipBackDelay);
+
+            AudioManager.instance.Play("WrongPair");
+
             flippedCards.ForEach(c =>
             {
                 c.IsFlipped = false;
@@ -133,6 +147,29 @@ public class DuelManager : MonoBehaviour
     {
         IsGameActive = false;
         if (timerRoutine != null) StopCoroutine(timerRoutine);
-        GameSceneManager.Instance.LoadEndScene(isWin);
+        
+        if (isWin)
+        {
+            GameSceneManager.Instance.LoadEndScene(true);
+        }
+        else
+        {
+            if (restartPanel != null)
+            {
+                AudioManager.instance.StopAllSounds();
+                AudioManager.instance.Play("KnightLose");
+                restartPanel.SetActive(true);
+            }
+        }
+    }
+
+    public void RestartGame()
+    {
+        GameSceneManager.Instance.ReloadCurrentScene();
+    }
+
+    public void ReturnToMenu()
+    {
+        GameSceneManager.Instance.LoadMenuScene();
     }
 }

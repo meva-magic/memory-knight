@@ -61,25 +61,23 @@ public class Interaction : MonoBehaviour
 
     private IEnumerator StartDialogue()
     {
+        AudioManager.instance.Play("StartDialogue");
+
         DisablePlayerMovement();
         yield return new WaitForSeconds(dialogueStartDelay);
         
-        // Start the dialogue through the NPC's Interact method
         currentNPC.Interact();
         
-        // Listen for dialogue completion
         StartCoroutine(WaitForDialogueCompletion());
     }
 
     private IEnumerator WaitForDialogueCompletion()
     {
-        // Wait until the NPC's dialogue panel is inactive
         while (currentNPC.dialoguePanel.activeSelf)
         {
             yield return null;
         }
         
-        // Dialogue has ended
         HandleDialogueCompletion();
     }
 

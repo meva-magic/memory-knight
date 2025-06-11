@@ -57,6 +57,18 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: ButtonPress
+    clip: {fileID: 8300000, guid: 13b23d454e5d45142905ae93f5a8f897, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StartDialogue
+    clip: {fileID: 8300000, guid: 58c9c512abb270142b47467b2b0f6724, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: KnightStart
     clip: {fileID: 8300000, guid: 3ab8e3ef5e2b408439db8c28961104b6, type: 3}
     volume: 0.1
@@ -92,12 +104,6 @@ MonoBehaviour:
     volume: 0.1
     pitch: 1
     loop: 1
-    source: {fileID: 0}
-  - name: ButtonPress
-    clip: {fileID: 8300000, guid: 932f86d8b248dbf4c9668383e7b38eb2, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
     source: {fileID: 0}
   - name: CardPress
     clip: {fileID: 8300000, guid: 7cfe3bcae2a1f8241970cc3b560beed0, type: 3}

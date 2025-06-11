@@ -7,15 +7,14 @@ public class GameSceneManager : MonoBehaviour
 
     [Header("Scene Names")]
     public string winScene = "WinScene";
-    public string loseScene = "LoseScene";
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject); // Make persistent if needed
         }
-
         else
         {
             Destroy(gameObject);
@@ -25,14 +24,25 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadEndScene(bool isWin)
     {
-        // Destroy all persistent UI elements (if any)
-        DestroyAllPersistentUI();
+        if (isWin)
+        {
+            // Only load win scene if player wins
+            DestroyAllPersistentUI();
+            SceneManager.LoadScene(winScene, LoadSceneMode.Single);
+        }
+        // No else case here - lose condition is now handled by DuelManager showing restart panel
+    }
 
-        // Load the new scene in Single mode (unloads previous scene)
-        SceneManager.LoadScene(
-            isWin ? winScene : loseScene,
-            LoadSceneMode.Single
-        );
+    public void ReloadCurrentScene()
+    {
+        DestroyAllPersistentUI();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    public void LoadMenuScene()
+    {
+        DestroyAllPersistentUI();
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
     private void DestroyAllPersistentUI()

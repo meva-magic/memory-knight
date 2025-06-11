@@ -954,10 +954,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 11400000, guid: 0d18627062fa0564a87bdd033340e505, type: 2}
-  dialoguePanel: {fileID: 0}
-  continueButton: {fileID: 0}
-  dialogueText: {fileID: 0}
-  nameText: {fileID: 0}
+  dialoguePanel: {fileID: 2121531199}
+  continueButton: {fileID: 501015758}
+  dialogueText: {fileID: 790767323}
+  nameText: {fileID: 1025843153}
 --- !u!4 &612830983
 Transform:
   m_ObjectHideFlags: 0

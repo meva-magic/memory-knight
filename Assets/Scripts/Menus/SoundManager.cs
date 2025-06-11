@@ -4,22 +4,21 @@ using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
     [Header("UI References")]
-    public Scrollbar volumeScrollbar; // Assign in inspector
-    public Button muteButton;        // Assign in inspector
-    public Image muteButtonImage;    // Assign in inspector
+    public Scrollbar volumeScrollbar; 
+    public Button muteButton;        
+    public Image muteButtonImage;    
     
     [Header("Sprites")]
-    public Sprite soundOnSprite;     // Assign sound on icon
-    public Sprite soundOffSprite;    // Assign sound off icon
+    public Sprite soundOnSprite;     
+    public Sprite soundOffSprite;    
 
     private bool isMuted = false;
-    private float savedVolume = 1f; // Default to full volume
+    private float savedVolume = 1f; 
 
     void Start()
     {
         AudioManager.instance.Play("Settings");
         
-        // Initialize with saved preferences or defaults
         if (PlayerPrefs.HasKey("Volume"))
         {
             savedVolume = PlayerPrefs.GetFloat("Volume");
@@ -33,9 +32,10 @@ public class SoundManager : MonoBehaviour
             UpdateMuteState();
         }
 
-        // Set up event listeners
         volumeScrollbar.onValueChanged.AddListener(ChangeVolume);
         muteButton.onClick.AddListener(ToggleMute);
+
+        AudioManager.instance.Play("ButtonPress");
     }
 
     public void ChangeVolume(float volume)
