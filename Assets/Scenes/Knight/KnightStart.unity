@@ -214,6 +214,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42844a4fccbd54746b90cade4ff70f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &331897634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.13031
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.16198
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706852457416311306, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
 --- !u!1 &354545101
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +354,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354545101}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.49, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -317,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a44e7a384107a2449399d497d76eebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueData: {fileID: 11400000, guid: 6d3db492d0a7d974bb729dab47e7207f, type: 2}
+  dialogueData: {fileID: 11400000, guid: 10ca899f3d0de1541801a9d973ff40e8, type: 2}
   dialoguePanel: {fileID: 2121531199}
   continueButton: {fileID: 501015758}
   dialogueText: {fileID: 790767323}
@@ -592,7 +649,7 @@ GameObject:
   - component: {fileID: 606000380}
   m_Layer: 0
   m_Name: TriggerZone
-  m_TagString: NPC
+  m_TagString: SceneChangeNPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1609,6 +1666,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMoveScript: {fileID: 1599387982}
+  woodsUI: {fileID: 0}
+  dialogueStartDelay: 0.1
+  regularNPCTag: NPC
+  sceneChangeNPCTag: SceneChangeNPC
+  postDialogueSceneToLoad: Leshy
 --- !u!58 &1599387984
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1682,7 +1744,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1702522283}
   - component: {fileID: 1702522284}
-  - component: {fileID: 1702522285}
   - component: {fileID: 1702522282}
   - component: {fileID: 1702522281}
   - component: {fileID: 1702522280}
@@ -1790,44 +1851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 1017949812}
-  canvasParent: {fileID: 1702522279}
---- !u!114 &1702522285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702522279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5ba6babd1402544a8e46aba34aa8455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Woods
-    clip: {fileID: 8300000, guid: c78e489a910e3bc49b10b16ccd0d1a35, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Leshy
-    clip: {fileID: 8300000, guid: 742c337ea452e0146841d69009f368a8, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Wizard
-    clip: {fileID: 8300000, guid: fb7d32e06b35196479e1ad5df9d3f0d9, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Mermaid
-    clip: {fileID: 8300000, guid: c78e489a910e3bc49b10b16ccd0d1a35, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
+  Theme: KnightStart
 --- !u!1 &1787242042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,8 +2147,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1272759557}
-  - {fileID: 1599387981}
   - {fileID: 354545103}
+  - {fileID: 1599387981}
   - {fileID: 1702522283}
   - {fileID: 168873806}
   - {fileID: 1529101414}
+  - {fileID: 331897634}

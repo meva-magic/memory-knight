@@ -8,6 +8,7 @@ TagManager:
   - Card
   - FxTemporaire
   - NPC
+  - SceneChangeNPC
   layers:
   - Default
   - TransparentFX

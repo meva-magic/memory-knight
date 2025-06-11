@@ -353,7 +353,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 353703466}
-  - component: {fileID: 353703471}
   - component: {fileID: 353703469}
   - component: {fileID: 353703468}
   - component: {fileID: 353703467}
@@ -449,79 +448,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &353703471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353703465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5ba6babd1402544a8e46aba34aa8455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Duel1
-    clip: {fileID: 8300000, guid: 742c337ea452e0146841d69009f368a8, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Duel1
-    clip: {fileID: 8300000, guid: 5a14ec423e54d3747827e7557af91921, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Duel1
-    clip: {fileID: 8300000, guid: 1e99eba43a5fcde459a9471fbd6abe75, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Duel1
-    clip: {fileID: 8300000, guid: c7ed231c67ed8444ab44f95a99165d12, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: LongWin
-    clip: {fileID: 8300000, guid: 5c3ba72d2d0358649a3c5261eaf26a2c, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Duel1
-    clip: {fileID: 8300000, guid: 8519c2b3d08a9a74eacf3d0c0dd4dc07, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: CardPress
-    clip: {fileID: 8300000, guid: 1e99eba43a5fcde459a9471fbd6abe75, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: RightPair
-    clip: {fileID: 8300000, guid: 13b23d454e5d45142905ae93f5a8f897, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: WrongPair
-    clip: {fileID: 8300000, guid: 67c434e5cb01f784daf89b9a003d060f, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: ButtonPress
-    clip: {fileID: 8300000, guid: 13b23d454e5d45142905ae93f5a8f897, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
 --- !u!114 &353703472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e02be1db4148ad4081a8325b5c54a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winScene: Leshy
+  winScene: Fairy
   loseScene: KnightLose
 --- !u!1 &504910980
 GameObject:
@@ -2303,7 +2229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -530}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1448120629
@@ -2342,6 +2268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d2fde4417e62742a9b7640125f7fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Theme: LeshyLocation
   pairsToWin: 3
   totalTime: 30
   flipDelay: 1
@@ -2926,6 +2853,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093083434}
   m_CullTransparentMesh: 1
+--- !u!1001 &5794727541009772019
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.13031
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.16198
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117511778786237207, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706852457416311306, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 064bf28ad9d69ee4596fc4bd2564090f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2933,3 +2917,4 @@ SceneRoots:
   - {fileID: 862228968}
   - {fileID: 353703466}
   - {fileID: 1301839000}
+  - {fileID: 5794727541009772019}

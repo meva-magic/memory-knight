@@ -6,6 +6,7 @@ using UnityEngine.UI; // Add this for Slider component
 public class DuelManager : MonoBehaviour
 {
     public static DuelManager Instance;
+    public string Theme;
 
     [Header("Game Settings")]
     public int pairsToWin = 5;
@@ -32,7 +33,13 @@ public class DuelManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start() => InitializeGame();
+    private void Start()
+    {
+        InitializeGame();
+
+        AudioManager.instance.StopAllSounds();
+        AudioManager.instance.Play(Theme);
+    }
 
     public void InitializeGame()
     {

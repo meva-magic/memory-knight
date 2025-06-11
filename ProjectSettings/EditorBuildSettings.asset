@@ -9,32 +9,41 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Menu.unity
     guid: 9b6e29a490314a9479950f41cae87972
   - enabled: 1
-    path: Assets/Scenes/Start.unity
-    guid: c8f51c1b09d22ba4292a9870d7d860c4
-  - enabled: 1
-    path: Assets/Scenes/Encounters/Leshy.unity
-    guid: 50e1adc403ee8fe468aaeea07c5631ac
-  - enabled: 1
-    path: Assets/Scenes/Duel.unity
-    guid: 04f3e60824a7849468ed30672e2158e0
-  - enabled: 1
-    path: Assets/Scenes/Encounters/Fairy.unity
-    guid: 98123f62b06bd37418e9bbb9a402e0ab
-  - enabled: 1
-    path: Assets/Scenes/Encounters/Ent.unity
-    guid: 238033facbcd53e42b3bb10eba5bd572
-  - enabled: 1
-    path: Assets/Scenes/Knight Win.unity
-    guid: c355b4c86824dd54ca6eec25243366f3
+    path: Assets/Scenes/Menus/Settings.unity
+    guid: 8958b2bb59657aa4fae0d44e5ec73551
   - enabled: 1
     path: Assets/Scenes/Menus/Win.unity
     guid: f3f7ade7a9e06d949a1815065b769a2f
   - enabled: 1
-    path: Assets/Scenes/Knight Lose.unity
-    guid: 0373b61fb7dcbac4aa199e5d4712e515
-  - enabled: 1
     path: Assets/Scenes/Menus/Death.unity
     guid: 08e9ab5bdb2b4d446a3dd9c68b5f2f0a
+  - enabled: 1
+    path: Assets/Scenes/Knight/KnightStart.unity
+    guid: c8f51c1b09d22ba4292a9870d7d860c4
+  - enabled: 1
+    path: Assets/Scenes/Knight/KnightWin.unity
+    guid: c355b4c86824dd54ca6eec25243366f3
+  - enabled: 1
+    path: Assets/Scenes/Knight/KnightLose.unity
+    guid: 0373b61fb7dcbac4aa199e5d4712e515
+  - enabled: 1
+    path: Assets/Scenes/Encounters/Leshy.unity
+    guid: 50e1adc403ee8fe468aaeea07c5631ac
+  - enabled: 1
+    path: Assets/Scenes/Encounters/Fairy.unity
+    guid: 04308c4053de63a459625b89d481a387
+  - enabled: 1
+    path: Assets/Scenes/Encounters/Ent.unity
+    guid: 715c27ab57b59f5499efd6bde7a2c408
+  - enabled: 1
+    path: Assets/Scenes/Duels/LeshyDuel.unity
+    guid: 04f3e60824a7849468ed30672e2158e0
+  - enabled: 1
+    path: Assets/Scenes/Duels/FairyDuel.unity
+    guid: c7db470dc69ae034a93d395fe41f11c5
+  - enabled: 1
+    path: Assets/Scenes/Duels/EntDuel.unity
+    guid: 0fa48ad40e1b9fc43b0aa8b9ad270a1b
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: ef401864143aedf41b79cc91468a5a85, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

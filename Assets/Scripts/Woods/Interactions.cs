@@ -1,50 +1,115 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
 public class Interaction : MonoBehaviour
 {
+    [Header("References")]
     public PlayerMove playerMoveScript;
+    public WoodsUI woodsUI;
+
+    [Header("Settings")]
+    public float dialogueStartDelay = 0.3f;
+    public string regularNPCTag = "NPC";
+    public string sceneChangeNPCTag = "SceneChangeNPC";
+    public string postDialogueSceneToLoad;
+
+    private bool isInteractingWithSceneChanger = false;
+    private NPC currentNPC;
 
     public static Interaction instance;
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        if (!playerMoveScript)
-        {
-            playerMoveScript = FindObjectOfType<PlayerMove>();
-        }
+        if (!playerMoveScript) playerMoveScript = FindObjectOfType<PlayerMove>(true);
+        if (!woodsUI) woodsUI = FindObjectOfType<WoodsUI>(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Проверяем, что столкнулись именно с NPC
-        if (other.CompareTag("NPC"))
+        if (other.CompareTag(regularNPCTag) || other.CompareTag(sceneChangeNPCTag))
         {
-            NPC.instance.Interact();
-            other.gameObject.SetActive(false); // отключаем триггер, чтобы предотвратить повторный запуск
+            NPC npc = other.GetComponentInParent<NPC>();
+            if (npc != null)
+            {
+                StartInteraction(npc, other.CompareTag(sceneChangeNPCTag));
+                other.enabled = false;
+            }
         }
+    }
+
+    private void StartInteraction(NPC npc, bool isSceneChanger)
+    {
+        isInteractingWithSceneChanger = isSceneChanger;
+        currentNPC = npc;
+        StartCoroutine(StartDialogue());
+    }
+
+    private IEnumerator StartDialogue()
+    {
+        DisablePlayerMovement();
+        yield return new WaitForSeconds(dialogueStartDelay);
+        
+        // Start the dialogue through the NPC's Interact method
+        currentNPC.Interact();
+        
+        // Listen for dialogue completion
+        StartCoroutine(WaitForDialogueCompletion());
+    }
+
+    private IEnumerator WaitForDialogueCompletion()
+    {
+        // Wait until the NPC's dialogue panel is inactive
+        while (currentNPC.dialoguePanel.activeSelf)
+        {
+            yield return null;
+        }
+        
+        // Dialogue has ended
+        HandleDialogueCompletion();
+    }
+
+    private void HandleDialogueCompletion()
+    {
+        if (isInteractingWithSceneChanger && !string.IsNullOrEmpty(postDialogueSceneToLoad))
+        {
+            StartCoroutine(LoadSceneAfterDelay(0.1f));
+        }
+        else
+        {
+            EnablePlayerMovement();
+        }
+    }
+
+    private IEnumerator LoadSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(postDialogueSceneToLoad);
     }
 
     public void DisablePlayerMovement()
     {
-        if (playerMoveScript != null)
-        {
-            playerMoveScript.enabled = false;
-            WoodsUI.instance.DisableJoystick();
-        }
+        if (playerMoveScript) playerMoveScript.DisableMovement();
+        if (woodsUI) woodsUI.DisableJoystick();
     }
 
     public void EnablePlayerMovement()
     {
-        if (playerMoveScript != null)
-        {
-            playerMoveScript.ResetJoystickInput(); // очистка предыдущего направления движения
-            playerMoveScript.enabled = true;
-            WoodsUI.instance.EnableJoystick();
-        }
+        if (playerMoveScript) playerMoveScript.EnableMovement();
+        if (woodsUI) woodsUI.EnableJoystick();
     }
 }
