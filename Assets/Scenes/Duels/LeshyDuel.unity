@@ -169,14 +169,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29803923, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39110392, g: 0.57067734, b: 0.7106918, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4888016639519292161, guid: a719075a35787b04eb8ad6cf31260ec4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardID: Sword
+  cardID: Skull
   frontFace: {fileID: 1350432060}
   backFace: {fileID: 504910980}
 --- !u!61 &652774427
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardID: Crow
+  cardID: Leaf
   frontFace: {fileID: 1516379440}
   backFace: {fileID: 1954386240}
 --- !u!61 &688469488
@@ -1348,7 +1348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardID: Rose
+  cardID: Acorn
   frontFace: {fileID: 300406148}
   backFace: {fileID: 312723619}
 --- !u!61 &1221457484
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardID: Crow
+  cardID: Acorn
   frontFace: {fileID: 1530837823}
   backFace: {fileID: 924803084}
 --- !u!114 &1303645501
@@ -1892,14 +1892,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29803923, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4785376, g: 0.63522005, b: 0.16979142, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2718695608257623872, guid: dda8c4c70751e844eb04d53b6b610d2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1967,14 +1967,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29803923, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.46570542, b: 0.74470586, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2718695608257623872, guid: dda8c4c70751e844eb04d53b6b610d2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardID: Rose
+  cardID: Skull
   frontFace: {fileID: 2093083434}
   backFace: {fileID: 1890308940}
 --- !u!61 &1403341510
@@ -2332,14 +2332,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29803923, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4785376, g: 0.63522005, b: 0.16979142, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4098769710762958682, guid: f8033101d001b554ba71086f2a7a6f44, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2407,14 +2407,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29803923, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39110392, g: 0.57067734, b: 0.7106918, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4098769710762958682, guid: f8033101d001b554ba71086f2a7a6f44, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2496,7 +2496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d995f936fa80a64db22af696bde1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardID: Sword
+  cardID: Leaf
   frontFace: {fileID: 1336068643}
   backFace: {fileID: 323096763}
 --- !u!61 &1883837185
@@ -2839,14 +2839,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29803923, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.46570542, b: 0.74470586, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4888016639519292161, guid: a719075a35787b04eb8ad6cf31260ec4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
