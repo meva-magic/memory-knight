@@ -3797,8 +3797,8 @@ MonoBehaviour:
   Theme: FairyLocation
   pairsToWin: 6
   totalTime: 30
-  flipDelay: 1
-  flipBackDelay: 1
+  flipDelay: 0.6
+  flipBackDelay: 0.5
   allCards:
   - {fileID: 688469487}
   - {fileID: 1403341509}
@@ -3806,6 +3806,12 @@ MonoBehaviour:
   - {fileID: 1883837184}
   - {fileID: 652774426}
   - {fileID: 1303645500}
+  - {fileID: 851481367}
+  - {fileID: 1219273780}
+  - {fileID: 956194996}
+  - {fileID: 1045273889}
+  - {fileID: 1680021064}
+  - {fileID: 1677135315}
   timerSlider: {fileID: 1064837610}
   restartPanel: {fileID: 1993851170}
 --- !u!1 &1516379440

@@ -4530,7 +4530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Theme: EntLocation
   pairsToWin: 8
-  totalTime: 30
+  totalTime: 45
   flipDelay: 1
   flipBackDelay: 1
   allCards:
@@ -4540,6 +4540,16 @@ MonoBehaviour:
   - {fileID: 1883837184}
   - {fileID: 652774426}
   - {fileID: 1303645500}
+  - {fileID: 1088372243}
+  - {fileID: 759899412}
+  - {fileID: 1990056279}
+  - {fileID: 1470198038}
+  - {fileID: 888880079}
+  - {fileID: 366445638}
+  - {fileID: 1962184570}
+  - {fileID: 562531646}
+  - {fileID: 109708494}
+  - {fileID: 1829870961}
   timerSlider: {fileID: 1064837610}
   restartPanel: {fileID: 1326458980}
 --- !u!1 &1470198032

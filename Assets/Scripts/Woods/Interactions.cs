@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.UI;
-using TMPro;
 
 public class Interaction : MonoBehaviour
 {
@@ -16,8 +14,8 @@ public class Interaction : MonoBehaviour
     public string sceneChangeNPCTag = "SceneChangeNPC";
     public string postDialogueSceneToLoad;
 
-    private bool isInteractingWithSceneChanger = false;
     private NPC currentNPC;
+    private bool isSceneChanger;
 
     public static Interaction instance;
 
@@ -33,57 +31,35 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (!playerMoveScript) playerMoveScript = FindObjectOfType<PlayerMove>(true);
-        if (!woodsUI) woodsUI = FindObjectOfType<WoodsUI>(true);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (currentNPC != null) return;
+
         if (other.CompareTag(regularNPCTag) || other.CompareTag(sceneChangeNPCTag))
         {
             NPC npc = other.GetComponentInParent<NPC>();
             if (npc != null)
             {
-                StartInteraction(npc, other.CompareTag(sceneChangeNPCTag));
+                currentNPC = npc;
+                isSceneChanger = other.CompareTag(sceneChangeNPCTag);
+                StartCoroutine(StartDialogue());
                 other.enabled = false;
             }
         }
     }
 
-    private void StartInteraction(NPC npc, bool isSceneChanger)
-    {
-        isInteractingWithSceneChanger = isSceneChanger;
-        currentNPC = npc;
-        StartCoroutine(StartDialogue());
-    }
-
     private IEnumerator StartDialogue()
     {
         AudioManager.instance.Play("StartDialogue");
-
         DisablePlayerMovement();
         yield return new WaitForSeconds(dialogueStartDelay);
         
-        currentNPC.Interact();
-        
-        StartCoroutine(WaitForDialogueCompletion());
+        currentNPC.StartDialogue(this); // Pass reference to Interaction
     }
 
-    private IEnumerator WaitForDialogueCompletion()
+    public void OnDialogueComplete()
     {
-        while (currentNPC.dialoguePanel.activeSelf)
-        {
-            yield return null;
-        }
-        
-        HandleDialogueCompletion();
-    }
-
-    private void HandleDialogueCompletion()
-    {
-        if (isInteractingWithSceneChanger && !string.IsNullOrEmpty(postDialogueSceneToLoad))
+        if (isSceneChanger && !string.IsNullOrEmpty(postDialogueSceneToLoad))
         {
             StartCoroutine(LoadSceneAfterDelay(0.1f));
         }
@@ -91,6 +67,7 @@ public class Interaction : MonoBehaviour
         {
             EnablePlayerMovement();
         }
+        currentNPC = null;
     }
 
     private IEnumerator LoadSceneAfterDelay(float delay)

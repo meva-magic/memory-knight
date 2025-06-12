@@ -2270,9 +2270,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Theme: LeshyLocation
   pairsToWin: 3
-  totalTime: 10
+  totalTime: 30
   flipDelay: 0.6
-  flipBackDelay: 0.6
+  flipBackDelay: 0.5
   allCards:
   - {fileID: 688469487}
   - {fileID: 1403341509}
