@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: Ent 1
   m_EditorClassIdentifier: 
   Name: "\u0434\u0440\u0435\u0432\u0435\u043D\u044C"
-  dialogueLines:
-  - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
-  - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
-  - "\u0431\u043B\u0435\u0434\u043D\u044B\u0439 \u043C\u0435\u0447\u043D\u0438\u043A"
+  dialogueLines: []
   autoProgressLines: 
   typingSpeed: 0.065
   autoProgressDelay: 1.5
