@@ -77,6 +77,7 @@ public class NPC : MonoBehaviour
         isTyping = true;
         interactionSystem?.UpdateButtons(false, false);
         
+        // Clear text before starting new line
         dialogueText.text = "";
         string currentLine = dialogueData.dialogueLines[currentLineIndex];
 
@@ -100,15 +101,21 @@ public class NPC : MonoBehaviour
 
         isTyping = false;
         OnDialogueLineComplete?.Invoke();
-        interactionSystem?.UpdateButtons(HasMoreDialogue, !HasMoreDialogue);
+        
+        // Update buttons based on remaining lines
+        bool hasMore = currentLineIndex < dialogueData.dialogueLines.Length - 1;
+        interactionSystem?.UpdateButtons(hasMore, !hasMore);
     }
 
     public void AdvanceDialogue()
     {
+        // Don't advance if still typing (should be handled by CompleteCurrentLine)
+        if (isTyping) return;
+
         currentLineIndex++;
         if (currentLineIndex < dialogueData.dialogueLines.Length)
         {
-            TypeCurrentLine();
+            TypeCurrentLine(); // Start typing next line
         }
         else
         {
@@ -124,7 +131,10 @@ public class NPC : MonoBehaviour
         dialogueText.text = dialogueData.dialogueLines[currentLineIndex];
         isTyping = false;
         OnDialogueLineComplete?.Invoke();
-        interactionSystem?.UpdateButtons(HasMoreDialogue, !HasMoreDialogue);
+        
+        // Update buttons after completing line
+        bool hasMore = currentLineIndex < dialogueData.dialogueLines.Length - 1;
+        interactionSystem?.UpdateButtons(hasMore, !hasMore);
     }
 
     public void SkipDialogue()
@@ -154,6 +164,7 @@ public class NPC : MonoBehaviour
         isDialogueActive = false;
         interactionCollider.enabled = true;
         currentLineIndex = 0;
+        isTyping = false;
     }
 }
 

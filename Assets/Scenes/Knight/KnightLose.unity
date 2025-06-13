@@ -305,6 +305,15 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   dialogueText: {fileID: 0}
   nameText: {fileID: 0}
+  OnDialogueStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDialogueEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDialogueLineComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &354545106
 Rigidbody2D:
   serializedVersion: 5
@@ -724,6 +733,10 @@ PrefabInstance:
       objectReference: {fileID: 1402756276}
     - target: {fileID: 4526389159176972565, guid: 1f9e381ca9aa6ac499d93dd444d0f845, type: 3}
       propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 1402756278}
+    - target: {fileID: 4526389159176972565, guid: 1f9e381ca9aa6ac499d93dd444d0f845, type: 3}
+      propertyPath: skipButton
       value: 
       objectReference: {fileID: 1402756278}
     - target: {fileID: 5792131460289738467, guid: 1f9e381ca9aa6ac499d93dd444d0f845, type: 3}

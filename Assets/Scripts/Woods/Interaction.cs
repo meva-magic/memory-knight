@@ -14,6 +14,7 @@ public class Interaction : MonoBehaviour
     public Button nextButton;
     public Button endButton;
     public Button skipButton;
+    public GameObject dialogueIndicator;
 
     [Header("Settings")]
     public float dialogueStartDelay = 0.3f;
@@ -33,6 +34,8 @@ public class Interaction : MonoBehaviour
     private bool isInteractingWithSceneChanger = false;
     private NPC currentNPC;
     private bool isInDialogue = false;
+    private float lastInputTime;
+    public float inputCooldown = 0.2f;
 
     public static Interaction instance;
 
@@ -43,6 +46,7 @@ public class Interaction : MonoBehaviour
             instance = this;
             InitializeButtons();
             InitializeInput();
+            if (dialogueIndicator != null) dialogueIndicator.SetActive(false);
         }
         else
         {
@@ -103,10 +107,10 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         if (playerMoveScript == null)
-            playerMoveScript = FindObjectOfType<PlayerMove>(true);
+            playerMoveScript = FindAnyObjectByType<PlayerMove>(FindObjectsInactive.Include);
         
         if (woodsUI == null)
-            woodsUI = FindObjectOfType<WoodsUI>(true);
+            woodsUI = FindAnyObjectByType<WoodsUI>(FindObjectsInactive.Include);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -118,10 +122,26 @@ public class Interaction : MonoBehaviour
             NPC npc = other.GetComponentInParent<NPC>();
             if (npc != null)
             {
-                StartInteraction(npc, other.CompareTag(sceneChangeNPCTag));
-                other.enabled = false;
+                // Disable movement immediately
+                DisablePlayerMovement();
+                
+                // Show indicator
+                if (dialogueIndicator != null) dialogueIndicator.SetActive(true);
+                
+                StartCoroutine(StartInteractionAfterDelay(npc, other.CompareTag(sceneChangeNPCTag)));
             }
         }
+    }
+
+    private IEnumerator StartInteractionAfterDelay(NPC npc, bool isSceneChanger)
+    {
+        yield return new WaitForSeconds(dialogueStartDelay);
+        
+        // Hide indicator when dialogue starts
+        if (dialogueIndicator != null) dialogueIndicator.SetActive(false);
+        
+        StartInteraction(npc, isSceneChanger);
+        npc.GetComponentInChildren<Collider2D>().enabled = false;
     }
 
     private void StartInteraction(NPC npc, bool isSceneChanger)
@@ -130,26 +150,66 @@ public class Interaction : MonoBehaviour
         isInteractingWithSceneChanger = isSceneChanger;
         currentNPC = npc;
         
+        currentNPC.ResetDialogue();
         currentNPC.Initialize(this, isSceneChanger);
+        
         StartCoroutine(StartDialogue());
     }
 
     private IEnumerator StartDialogue()
     {
-        DisablePlayerMovement();
         OnDialogueStarted?.Invoke();
-        yield return new WaitForSeconds(dialogueStartDelay);
         
         currentNPC.StartDialogue();
-        yield return StartCoroutine(WaitForDialogueCompletion());
-    }
-
-    private IEnumerator WaitForDialogueCompletion()
-    {
+        
         while (currentNPC.IsDialogueActive)
+        {
             yield return null;
+        }
         
         HandleDialogueCompletion();
+    }
+
+    public void OnNextPressed()
+    {
+        if (Time.time < lastInputTime + inputCooldown) return;
+        lastInputTime = Time.time;
+        
+        if (currentNPC == null || !isInDialogue) return;
+
+        if (currentNPC.IsTyping)
+        {
+            currentNPC.CompleteCurrentLine();
+        }
+        else
+        {
+            currentNPC.AdvanceDialogue();
+        }
+    }
+
+    public void OnEndPressed()
+    {
+        if (Time.time < lastInputTime + inputCooldown) return;
+        lastInputTime = Time.time;
+        
+        if (currentNPC != null && isInDialogue)
+            currentNPC.EndDialogue();
+    }
+
+    public void OnSkipPressed()
+    {
+        if (Time.time < lastInputTime + inputCooldown) return;
+        lastInputTime = Time.time;
+        
+        if (currentNPC != null && isInDialogue)
+            currentNPC.SkipDialogue();
+    }
+
+    public void UpdateButtons(bool showNext, bool showEnd)
+    {
+        if (nextButton != null) nextButton.gameObject.SetActive(showNext);
+        if (endButton != null) endButton.gameObject.SetActive(showEnd);
+        if (skipButton != null) skipButton.gameObject.SetActive(true);
     }
 
     private void HandleDialogueCompletion()
@@ -163,45 +223,10 @@ public class Interaction : MonoBehaviour
             EnablePlayerMovement();
     }
 
-    public void OnNextPressed()
-    {
-        if (currentNPC == null || !isInDialogue) return;
-
-        if (currentNPC.IsTyping)
-            currentNPC.CompleteCurrentLine();
-        else
-            currentNPC.AdvanceDialogue();
-    }
-
-    public void OnEndPressed()
-    {
-        if (currentNPC != null && isInDialogue)
-            currentNPC.EndDialogue();
-    }
-
-    public void OnSkipPressed()
-    {
-        if (currentNPC != null && isInDialogue)
-            currentNPC.SkipDialogue();
-    }
-
-    public void UpdateButtons(bool showNext, bool showEnd)
-    {
-        if (nextButton != null) nextButton.gameObject.SetActive(showNext);
-        if (endButton != null) endButton.gameObject.SetActive(showEnd);
-        if (skipButton != null) skipButton.gameObject.SetActive(true);
-    }
-
     public void LoadNextScene()
     {
         if (!string.IsNullOrEmpty(postDialogueSceneToLoad))
-            StartCoroutine(LoadSceneAfterDelay(0.1f));
-    }
-
-    private IEnumerator LoadSceneAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(postDialogueSceneToLoad);
+            SceneManager.LoadScene(postDialogueSceneToLoad);
     }
 
     public void DisablePlayerMovement()
