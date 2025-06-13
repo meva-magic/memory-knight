@@ -15,11 +15,12 @@ public class DuelManager : MonoBehaviour
     public float flipBackDelay = 0.5f;
 
     [Header("Card References")]
+    public Transform cardsParent; // Parent object containing all cards
     public List<Card> allCards = new List<Card>();
 
     [Header("UI References")]
     public Slider timerSlider;
-    public GameObject restartPanel; // Reference to your restart panel
+    public GameObject restartPanel;
 
     private readonly List<Card> flippedCards = new List<Card>();
     private int matchedPairs;
@@ -37,7 +38,6 @@ public class DuelManager : MonoBehaviour
     private void Start()
     {
         InitializeGame();
-
         AudioManager.instance.StopAllSounds();
         AudioManager.instance.Play(Theme);
     }
@@ -48,40 +48,69 @@ public class DuelManager : MonoBehaviour
         matchedPairs = 0;
         flippedCards.Clear();
 
-        // Hide restart panel at game start
         if (restartPanel != null)
-        {
             restartPanel.SetActive(false);
-        }
 
-        // Initialize the slider
         timerSlider.maxValue = totalTime;
         timerSlider.value = totalTime;
 
+        // Initialize and shuffle cards
+        InitializeAllCards();
+        StartCoroutine(ShuffleCardsWithDelay());
+    }
+
+    private void InitializeAllCards()
+    {
         foreach (var card in allCards)
         {
             card.InitializeCard();
+            card.gameObject.SetActive(true); // Ensure card is active
         }
+    }
 
-        ShuffleCards();
+    private IEnumerator ShuffleCardsWithDelay()
+    {
+        // Wait one frame to ensure all cards are initialized
+        yield return null;
+        
+        ShuffleCardPositions();
         timerRoutine = StartCoroutine(TimerCountdown());
     }
 
-    private void ShuffleCards()
+    private void ShuffleCardPositions()
     {
+        // Disable any layout groups temporarily
+        var layoutGroup = cardsParent.GetComponent<LayoutGroup>();
+        if (layoutGroup != null) layoutGroup.enabled = false;
+
+        // Get all card positions
+        List<Vector3> positions = new List<Vector3>();
+        foreach (Card card in allCards)
+        {
+            positions.Add(card.transform.localPosition);
+        }
+
+        // Fisher-Yates shuffle
+        for (int i = 0; i < positions.Count; i++)
+        {
+            int randomIndex = Random.Range(i, positions.Count);
+            Vector3 temp = positions[i];
+            positions[i] = positions[randomIndex];
+            positions[randomIndex] = temp;
+        }
+
+        // Apply new positions
         for (int i = 0; i < allCards.Count; i++)
         {
-            int randomIndex = Random.Range(i, allCards.Count);
-            (allCards[i], allCards[randomIndex]) = (allCards[randomIndex], allCards[i]);
+            allCards[i].transform.localPosition = positions[i];
         }
     }
 
     public void ProcessCardFlip(Card card)
     {
-        AudioManager.instance.Play("CardPress");
-
         if (!CanAcceptInput || card.IsFlipped || card.IsMatched) return;
 
+        AudioManager.instance.Play("CardPress");
         card.IsFlipped = true;
         card.UpdateVisuals();
         flippedCards.Add(card);
@@ -101,8 +130,6 @@ public class DuelManager : MonoBehaviour
 
         if (isMatch)
         {
-            //AudioManager.instance.Play("RightPair");
-
             flippedCards.ForEach(c => c.IsMatched = true);
             matchedPairs++;
 
@@ -115,7 +142,6 @@ public class DuelManager : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(flipBackDelay);
-
             AudioManager.instance.Play("WrongPair");
 
             flippedCards.ForEach(c =>
@@ -136,7 +162,7 @@ public class DuelManager : MonoBehaviour
         while (timeRemaining > 0 && IsGameActive)
         {
             timeRemaining -= Time.deltaTime;
-            timerSlider.value = timeRemaining; // Update the slider value
+            timerSlider.value = timeRemaining;
             yield return null;
         }
 

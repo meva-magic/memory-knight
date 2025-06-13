@@ -45,6 +45,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Duels/EntDuel.unity
     guid: 0fa48ad40e1b9fc43b0aa8b9ad270a1b
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 10b0c8156368e2e459e76f5bab2f5fcc, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 5aade061e87a0ed4c8bd6875568732cb, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: ef401864143aedf41b79cc91468a5a85, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

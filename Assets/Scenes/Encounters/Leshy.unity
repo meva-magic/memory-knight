@@ -314,7 +314,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 11400000, guid: 8677a5a03c6ffe84ca061b3f7d742e00, type: 2}
   dialoguePanel: {fileID: 2121531199}
-  continueButton: {fileID: 501015758}
   dialogueText: {fileID: 790767323}
   nameText: {fileID: 1025843153}
 --- !u!50 &354545106
@@ -883,6 +882,14 @@ PrefabInstance:
       propertyPath: woodsUI
       value: 
       objectReference: {fileID: 1702522284}
+    - target: {fileID: 4526389159176972565, guid: 1f9e381ca9aa6ac499d93dd444d0f845, type: 3}
+      propertyPath: endButton
+      value: 
+      objectReference: {fileID: 1962732606092250300}
+    - target: {fileID: 4526389159176972565, guid: 1f9e381ca9aa6ac499d93dd444d0f845, type: 3}
+      propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 501015758}
     - target: {fileID: 5792131460289738467, guid: 1f9e381ca9aa6ac499d93dd444d0f845, type: 3}
       propertyPath: joystick
       value: 
@@ -1041,6 +1048,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d377f257baec72243a1e5392184f4f30, type: 3}
+--- !u!114 &1962732606092250300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 928426165712106772, guid: d377f257baec72243a1e5392184f4f30, type: 3}
+  m_PrefabInstance: {fileID: 1962732606092250299}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2375733477494307242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1160,9 +1178,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1272759557}
+  - {fileID: 1962732606092250299}
   - {fileID: 63011347550681055}
   - {fileID: 354545103}
-  - {fileID: 1962732606092250299}
   - {fileID: 2375733477494307242}
   - {fileID: 1259351577}
   - {fileID: 3716325414371656097}
