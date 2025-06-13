@@ -602,6 +602,10 @@ PrefabInstance:
       value: DuelUI
       objectReference: {fileID: 0}
     - target: {fileID: 2989381449397443290, guid: 916608428d1566442870c4d33f8f4e22, type: 3}
+      propertyPath: totalTime
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989381449397443290, guid: 916608428d1566442870c4d33f8f4e22, type: 3}
       propertyPath: cardsParent
       value: 
       objectReference: {fileID: 1552260052}

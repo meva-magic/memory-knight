@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2989381449397443290, guid: 916608428d1566442870c4d33f8f4e22, type: 3}
       propertyPath: totalTime
-      value: 45
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2989381449397443290, guid: 916608428d1566442870c4d33f8f4e22, type: 3}
       propertyPath: pairsToWin

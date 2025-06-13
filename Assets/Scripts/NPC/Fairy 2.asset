@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4c6c23f87a8fc4db12a72d92dc9c68, type: 3}
   m_Name: Fairy 2
   m_EditorClassIdentifier: 
-  Name: "\u0425\u041E\u0417\u042F\u0419\u041A\u0410 \u0421\u0410\u0414\u0410 \u041A\u041E\u0421\u0422\u0415\u0419"
+  Name: "\u0421\u0410\u0414 \u041A\u041E\u0421\u0422\u0415\u0419"
   dialogueLines:
   - "\u0410\u0445  .  .  ."
   - "\u041A\u0430\u043A\u0430\u044F \u0436\u0430\u043B\u043E\u0441\u0442\u044C"

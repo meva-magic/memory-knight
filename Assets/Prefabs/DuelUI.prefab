@@ -282,6 +282,7 @@ MonoBehaviour:
   cardID: Acorn
   frontFace: {fileID: 4404508387560614462}
   backFace: {fileID: 363945601426705605}
+  frontSprite: {fileID: 0}
 --- !u!61 &4720055095963486326
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -479,6 +480,7 @@ MonoBehaviour:
   cardID: Skull
   frontFace: {fileID: 7962202947770901247}
   backFace: {fileID: 7380262350993700378}
+  frontSprite: {fileID: 0}
 --- !u!61 &8290337926429338474
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1054,8 +1056,9 @@ MonoBehaviour:
   Theme: LeshyLocation
   pairsToWin: 3
   totalTime: 30
-  flipDelay: 0.6
-  flipBackDelay: 0.5
+  flipDelay: 0.3
+  flipBackDelay: 0.3
+  cardsParent: {fileID: 0}
   allCards:
   - {fileID: 4003235748928290870}
   - {fileID: 1161941982939788561}
@@ -1099,7 +1102,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3337973373445870257}
-  - {fileID: 8278769875697076460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1403,6 +1405,7 @@ MonoBehaviour:
   cardID: Acorn
   frontFace: {fileID: 589563630756553294}
   backFace: {fileID: 8000592473980195149}
+  frontSprite: {fileID: 0}
 --- !u!61 &3569809190320173842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1600,6 +1603,7 @@ MonoBehaviour:
   cardID: Leaf
   frontFace: {fileID: 1237204223975630823}
   backFace: {fileID: 3255586441944924908}
+  frontSprite: {fileID: 0}
 --- !u!61 &7700879613976985872
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1872,6 +1876,7 @@ MonoBehaviour:
   cardID: Skull
   frontFace: {fileID: 2609916762212785432}
   backFace: {fileID: 3163496074619800874}
+  frontSprite: {fileID: 0}
 --- !u!61 &2958378043059738154
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2118,6 +2123,7 @@ RectTransform:
   m_Children:
   - {fileID: 2080507533132863316}
   - {fileID: 3648759288153111745}
+  - {fileID: 8278769875697076460}
   m_Father: {fileID: 2397666880626754500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2197,6 +2203,7 @@ MonoBehaviour:
   cardID: Leaf
   frontFace: {fileID: 363787403378689677}
   backFace: {fileID: 5341605284403370278}
+  frontSprite: {fileID: 0}
 --- !u!61 &4627296562121910073
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2568,7 +2575,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2397666880626754500}
+    m_TransformParent: {fileID: 3337973373445870257}
     m_Modifications:
     - target: {fileID: 233530418692509445, guid: 26cc3dad72f18954ca2ca9e51063397f, type: 3}
       propertyPath: m_Pivot.x
@@ -2620,15 +2627,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 233530418692509445, guid: 26cc3dad72f18954ca2ca9e51063397f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 233530418692509445, guid: 26cc3dad72f18954ca2ca9e51063397f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 233530418692509445, guid: 26cc3dad72f18954ca2ca9e51063397f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 233530418692509445, guid: 26cc3dad72f18954ca2ca9e51063397f, type: 3}
       propertyPath: m_AnchoredPosition.x
